@@ -1,12 +1,13 @@
-# Shadow Protocol / Titan Warfare
+# SHADOW PROTOCOL
 
-Two single-file browser games built with Three.js (r128, loaded from cdnjs).
+Robot warfare game (TITAN-07) built with Three.js (r128 from cdnjs). Single file: `index.html`.
 
-- `shadow-protocol.html`: stealth-action mission "Operation: Blackout" with a cinematic landing page.
-- `titan-warfare.html`: SHADOW PROTOCOL robot combat game (TITAN-07) with loot, inventory and a data-driven 100-level campaign.
+- Level 1: Operation Ironfall (hand-built, five zones, Heavy Sentinel boss, extraction).
+- Levels 2-100: generated variations of one arena (data-driven), not hand-designed maps.
+- Procedural robot and environment models; synthesized audio.
 
 ## Run
-Open `index.html` (links to both games). On Vercel: Framework Preset "Other", no build command, output directory left empty (static site at the repo root).
+Open `index.html` in a modern browser (internet needed for Three.js). No build step.
 
-## Status
-Playable prototypes. Characters are procedural, not photoreal. Titan Warfare levels 1-100 are generated variations of one arena. Not fully playtested.
+## Deploy (Vercel)
+Framework Preset: Other. No build command. Output directory empty. Root Directory: repository root.
