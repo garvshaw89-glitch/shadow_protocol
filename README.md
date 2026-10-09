@@ -6,7 +6,7 @@ Two single-file browser games built with Three.js (r128, loaded from cdnjs).
 - `titan-warfare.html`: robot combat game with loot, inventory and a data-driven 100-level campaign.
 
 ## Run
-Open either file in a modern desktop or mobile browser (internet needed for the Three.js script). No build step.
+Open `index.html` (links to both games). On Vercel: Framework Preset "Other", no build command, output directory left empty (static site at the repo root).
 
 ## Status
 Playable prototypes. Characters are procedural, not photoreal. Titan Warfare levels 1-100 are generated variations of one arena. Not fully playtested.
