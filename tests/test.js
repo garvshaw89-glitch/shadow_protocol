@@ -13,7 +13,14 @@ T_('boss-death',()=>{const b=M.hs;dmgE(b,1e9);step(10);out('dead',b.dead,'stage 
 T_('extract',()=>{P.x=38;P.z=0;step(3);out('state',state);step(160);out('state after cine',state,'grade UI',document.getElementById('op').textContent.slice(0,60))});
 T_('retry',()=>{state='play';die();out('dead state',state);retry1();step(20);out('retry state',state,'EN',EN.length,'boss',M.hs&&M.hs.st,'stage',M.s)});
 T_('proc',()=>{SV.max=100;startLevel(2);step(60);out('L2 EN',EN.length);for(let i=0;i<5;i++)step(60);startLevel(100);step(60);out('L100 boss',!!boss,boss&&boss.k,'EN',EN.length);EN.forEach(e=>e.boss&&(e.hp=e.mx*.3));step(200)});
-T_('menu',()=>{menu();step(30);armUI();lvUI();hgUI();upUI();recUI();out('menu ok',state)});
+T_('menu',()=>{menu();step(30);mainUI();out('main nav buttons',document.querySelectorAll('#op .nv').length,'disabled',document.querySelectorAll('#op .nv:disabled').length,'focus',document.activeElement&&document.activeElement.className);
+ SV.max=100;for(let ti=0;ti<10;ti++){selT=ti;selL=ti*10+1;missUI()}out('mission screens ok, map canvas',!!document.getElementById('tmap'),'brief text',document.querySelector('#op .bf p').textContent.slice(0,40));
+ for(const k of ['AR','EN','SG','PS','RF']){armSel=k;armUI()}out('armory ok held',!!PH.wm);armSel='AR';SV.pri='AR';armUI();cfgUI();for(let i=0;i<4;i++){SV.col=i;mkPlayer();setHeld(PH,'AR')}SV.col=0;mkPlayer();setHeld(PH,'AR');setUI('mainUI()');ctlUI('mainUI()');
+ SV.gfx=0;applyGfx();SV.gfx=2;applyGfx();SV.rm=true;applyMotion();out('rmo class',document.body.classList.contains('rmo'));SV.rm=false;applyMotion();
+ const ev=new window.KeyboardEvent('keydown',{key:'ArrowDown'});mainUI();window.dispatchEvent(ev);out('kbd focus moved',document.activeElement.className.slice(0,10))});
+T_('pause-flow',()=>{SV.pri='SG';BRIEF=1;startLevel(2);step(20);out('pri start inv',P.inv.map(x=>x&&x.k),'held ok',!!PH.wm);pause();out('state',state,'pause UI',document.getElementById('op').textContent.slice(0,40));askUI('X','y',()=>{});setUI('pauseUI()');ctlUI('pauseUI()');pauseUI();resume();step(5);out('resumed',state);step(60);out('hud',document.getElementById('hv').textContent,document.getElementById('th').textContent,document.getElementById('wn').textContent.slice(0,20));
+ BRIEF=1;startLevel(1);P.boot=0;step(40);out('L1 hud ob',document.getElementById('ob').textContent.slice(0,50));pause();askUI('RETURN','m',menu);ASK();out('after return',state,'EN',EN.length)});
+
 
 T_('leaks',()=>{out('SPK',SPK.length,'EN',EN.length,'DY',DY.length)});
 
