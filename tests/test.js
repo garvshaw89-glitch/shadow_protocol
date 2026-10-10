@@ -16,3 +16,6 @@ T_('proc',()=>{SV.max=100;startLevel(2);step(60);out('L2 EN',EN.length);for(let 
 T_('menu',()=>{menu();step(30);armUI();lvUI();hgUI();upUI();recUI();out('menu ok',state)});
 
 T_('leaks',()=>{out('SPK',SPK.length,'EN',EN.length,'DY',DY.length)});
+
+T_('mech',()=>{mkPlayer();setHeld(PH,'AR');PH.g.updateMatrixWorld(true);const b=new THREE.Box3().setFromObject(PH.g),z=b.getSize(new THREE.Vector3());let n=0;PH.g.traverse(o=>{if(o.isMesh)n++});out('mech size (m)',z.x.toFixed(2),z.y.toFixed(2),z.z.toFixed(2),'meshes',n,'plates',PH.plates.length,'fingers',PH.fg[0].length+PH.fg[1].length)});
+T_('mech-combat',()=>{BRIEF=1;startLevel(1);P.boot=0;P.hp=P.hpm=1000;step(5);const e={x:P.x+8,z:P.z+3};for(let i=0;i<6;i++){hurtP(12,e)}step(5);const dented=PH.plates.filter(p=>(p.userData.d||0)>0).length;out('dented plates',dented,'hx',PH.hx.toFixed(2),'stag',PH.stag.toFixed(2));K.KeyW=1;step(120);K.KeyW=0;out('walked x',P.x.toFixed(1));P.hp=P.hpm*.2;step(60);out('smoke/dmg flag',PH.dmg);hurtP(2000,e);step(60);out('dead',state,'dd',PH.dd.toFixed(2));retry1();step(5);out('respawn dented',PH.plates.filter(p=>(p.userData.d||0)>0).length,'dd',PH.dd)});
