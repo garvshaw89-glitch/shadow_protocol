@@ -36,7 +36,7 @@ table{border-collapse:collapse;width:100%;font-size:14px}td,th{padding:4px 8px;t
 <div class="h" id="bh"><span id="bn"></span><div class="bar"><div id="bb" style="height:100%;background:var(--red);width:100%"></div></div></div>
 <div class="h" id="st">HEALTH<div class="bar"><div id="hb" style="background:var(--red)"></div></div>ARMOR<div class="bar"><div id="ab" style="background:var(--cy)"></div></div></div>
 <div class="h" id="wp"><div id="wn"></div><div id="am"></div><div id="inv"></div></div>
-<div class="h" id="xh"></div><div class="h" id="dd"><i></i></div><div class="h" id="pr"></div><div class="h" id="nt"></div></div>
+<div class="h" id="xh"></div><div class="h" id="dd"><i></i></div><div class="h" id="tg" style="top:calc(50% + 22px);left:50%;transform:translateX(-50%);font-size:14px;letter-spacing:.15em;text-shadow:0 1px 3px #000"></div><div class="h" id="pr"></div><div class="h" id="nt"></div></div>
 <div id="tc"><div id="jl"></div><div id="jr"></div>
 <div class="tb" id="bf" style="right:16px;bottom:96px;width:78px;height:78px">FIRE</div><div class="tb" id="ba" style="right:104px;bottom:150px">AIM</div><div class="tb" id="be" style="right:104px;bottom:70px">USE</div><div class="tb" id="br" style="right:18px;bottom:190px">RLD</div><div class="tb" id="bw" style="right:100px;bottom:230px">SWAP</div><div class="tb" id="bp" style="right:12px;top:150px;width:44px;height:44px">II</div></div>
 <div id="tl" class="h" style="right:6vw;bottom:9vh;text-align:right;display:none;z-index:6"><span class="cap">UNIT DESIGNATION</span><br><b style="font-size:34px;letter-spacing:.2em">TITAN-07</b><br><span class="cap">Heavy Assault Frame</span></div><div id="ui"><div class="pn" id="op"></div></div>
@@ -63,7 +63,7 @@ AR:{n:'VIPER AR-9',ty:'light',mag:30,rate:.1,dmg:13,pel:1,sp:.022,rl:1.7,nz:34,c
 EN:{n:'AEGIS E-12',ty:'cell',mag:24,rate:.35,dmg:34,pel:1,sp:.004,rl:1.8,nz:14,c:0x36e0ff,cost:2,rec:.6,kick:.01,fs:999,fe:1000,fmin:1,chg:.14,hp:.12,fl:'energy'},
 SG:{n:'BREACHER S-4',ty:'shell',mag:6,rate:.85,dmg:9,pel:9,sp:.08,rl:2.3,nz:34,c:0xffb060,cost:1,rec:1.8,kick:.03,fs:3,fe:16,fmin:.15,fl:'shell'},
 RF:{n:'LANCE RAILGUN',ty:'rail',mag:4,rate:1.1,dmg:80,pel:1,sp:0,rl:2.2,nz:40,c:0xc08cff,cost:1,rec:1.4,kick:.02,fs:999,fe:1000,fmin:1,fl:'energy'}};
-const ED={grunt:{hp:60,ar:0,sp:3.2,dmg:5,rate:.55,rg:20,vr:30,sc:.9,a:0x4a4f55,b:0x2a2d31,e:0xff7a2a},scout:{hp:35,ar:0,sp:5.2,dmg:3.5,rate:.3,rg:14,vr:34,sc:.8,a:0x5a5f66,b:0x33363a,e:0xffd23a},heavy:{hp:220,ar:.45,sp:2,dmg:12,rate:1.1,rg:22,vr:28,sc:1.2,a:0x3a3d42,b:0x1d1f22,e:0xff3a2a},elite:{hp:120,ar:.2,sp:4,dmg:8,rate:.4,rg:24,vr:36,sc:1,a:0x2e3238,b:0x181a1d,e:0xff2ad0},sentinel:{hp:380,ar:.5,sp:1.8,dmg:14,rate:.45,rg:24,vr:30,sc:1.5,a:0x3a3d42,b:0x1d1f22,e:0xff3a2a},guardian:{hp:1100,ar:.35,sp:2.4,dmg:10,rate:.5,rg:26,vr:36,sc:1.9,a:0x4a3a2a,b:0x1c1a18,e:0xff4a1a},prime:{hp:3200,ar:.4,sp:2.6,dmg:12,rate:.4,rg:30,vr:40,sc:2.7,a:0x30343a,b:0x121417,e:0xff1a1a}};
+const ED={grunt:{nm:'REVENANT',hp:70,ar:.1,sp:3.2,dmg:5,rate:.13,burst:5,rl:1.8,rg:20,vr:30,sc:.9,a:0x4a5340,b:0x23272b,e:0xffb43d},scout:{nm:'WRAITH',drone:1,hp:30,ar:0,sp:5.5,dmg:3.5,rate:.2,burst:3,rl:1.2,rg:16,vr:34,sc:.9,a:0x2b2f34,b:0x14161a,e:0x36e0ff},heavy:{nm:'REVENANT HEAVY',hp:220,ar:.45,sp:2,dmg:8,rate:.16,burst:6,rl:2,rg:22,vr:28,sc:1.2,a:0x3a3d42,b:0x1d1f22,e:0xff3a2a},elite:{nm:'REVENANT-X',hp:120,ar:.2,sp:4,dmg:7,rate:.1,burst:4,rl:1.2,rg:24,vr:36,sc:1,a:0x2e3238,b:0x181a1d,e:0xffb43d},sentinel:{nm:'COLOSSUS',hp:600,ar:.35,sp:1.8,dmg:10,rate:.13,rg:30,vr:40,sc:1.5,a:0x3a3d42,b:0x1d1f22,e:0xff2a1a},guardian:{nm:'GUARDIAN',hp:1100,ar:.35,sp:2.4,dmg:10,rate:.5,rg:26,vr:36,sc:1.9,a:0x4a3a2a,b:0x1c1a18,e:0xff4a1a},prime:{nm:'TITAN PRIME',hp:3200,ar:.4,sp:2.6,dmg:12,rate:.4,rg:30,vr:40,sc:2.7,a:0x30343a,b:0x121417,e:0xff1a1a}};
 const COLS=[['TITANIUM',0x9aa1a9,0x3c424a,0x36e0ff],['GUNMETAL',0x4a5058,0x23272c,0x36e0ff],['DESERT',0xa89268,0x4a4030,0xffb43d],['CRIMSON',0x8a2a2a,0x2a2a2e,0xff4a3d]];
 function cfg(n){const t=Math.floor((n-1)/10);return{n,t,name:n===100?'THE LAST TITAN':TN[t]+' '+((n-1)%10+1),en:Math.min(24,3+Math.floor(n*.2)),acc:.18+t*.05+n*.0015,hpm:1+n*.008,loot:Math.max(7,15-t),boss:n===100?2:n%10===0?1:0,area:AREAS[n%6],seed:n*7919+13,rew:40+n*6}}
 const rg=s=>()=>{s|=0;s=s+0x6D2B79F5|0;let t=Math.imul(s^s>>>15,1|s);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296};
@@ -123,7 +123,7 @@ function animH(H,dt,spd,aim,pit,run,rld,hurt){
 // ---------- world ----------
 const W=[],wm=[],EN=[],LT=[],SPK=[];let world,P,L,ST,state='menu',PH,ph,sun,aimv=0,rmb=false,md=false,tF=false,tA=false,jv={x:0,z:0},selT=0,selL=1,hangYaw=0,flick=[],boss=null;
 function mkPlayer(){if(PH)scene.remove(PH.g);const c=COLS[SV.col];PH=robot({a:c[1],b:c[2],e:c[3],sc:.9,full:true});ph=PH.g;scene.add(ph)}
-function clearW(){IA.length=0;if(world)scene.remove(world);world=new T.Group();W.length=wm.length=EN.length=LT.length=flick.length=0;boss=null}
+function clearW(){IA.length=0;DY.length=0;if(world)scene.remove(world);world=new T.Group();W.length=wm.length=EN.length=LT.length=flick.length=0;boss=null}
 function box(x0,z0,x1,z1,h,c,solid=true,y0=0,mat){const m=new T.Mesh(new T.BoxGeometry(x1-x0,h,z1-z0),mat||MT(c,.6,.5));m.position.set((x0+x1)/2,y0+h/2,(z0+z1)/2);m.castShadow=m.receiveShadow=true;m.userData.mt=h>=5?'concrete':'metal';world.add(m);if(solid){W.push({x0,z0,x1,z1,m});wm.push(m)}return m}
 function col(x,z,r){for(let i=0;i<W.length;i++){const w=W[i];if(x>w.x0-r&&x<w.x1+r&&z>w.z0-r&&z<w.z1+r)return true}return false}
 const rc=new T.Raycaster(),v1=new T.Vector3(),v2=new T.Vector3(),hv=new T.Vector3();
@@ -156,7 +156,7 @@ function arena(){const r=rg(L.seed),ai=L.n%6,pal=[0x4a4f55,0x5a5048,0x3a4a52,0x4
  for(let i=0;i<L.en;i++){const p=freePos(r,22);mkE(pool[(r()*pool.length)|0],p.x,p.z,r)}
  if(L.boss){const p=freePos(r,28,10,36);const e=mkE(L.boss===2?'prime':'guardian',p.x,p.z,r);e.boss=L.boss;boss=e;const ring=new T.Mesh(new T.RingGeometry(.2,1,40),new T.MeshBasicMaterial({color:0xff2a1a,transparent:true,opacity:.45,side:T.DoubleSide,depthWrite:false}));ring.rotation.x=-Math.PI/2;ring.position.y=.05;ring.visible=false;world.add(ring);e.ring=ring}
  scene.add(world);scene.fog.density=.014+ai*.002}
-function mkE(k,x,z,r){const d=ED[k],H=robot({a:d.a,b:d.b,e:d.e,sc:d.sc,full:k==='sentinel'||k==='guardian'||k==='prime'}),g=H.g,bd=new T.Mesh(new T.CylinderGeometry(.65,.65,2.7,8),new T.MeshBasicMaterial({visible:false}));bd.position.y=1.35;g.add(bd);world.add(g);
+function mkE(k,x,z,r){const s_=safeSpot(x,z);x=s_.x;z=s_.z;const d=ED[k],H=d.drone?drone({a:d.a,b:d.b,e:d.e,sc:d.sc}):robot({a:d.a,b:d.b,e:d.e,sc:d.sc,full:k==='sentinel'||k==='guardian'||k==='prime'}),g=H.g,bd=new T.Mesh(d.drone?new T.CylinderGeometry(.8,.8,1.3,8):new T.CylinderGeometry(.65,.65,2.7,8),new T.MeshBasicMaterial({visible:false}));bd.position.y=d.drone?.65:1.35;if(!d.drone)decorate(H,k);g.add(bd);world.add(g);
  const pts=[[x,z]];for(let i=0;i<2;i++){const px=x+(r()-.5)*16,pz=z+(r()-.5)*16;if(!col(px,pz,1.2)&&Math.abs(px)<39&&Math.abs(pz)<39)pts.push([px,pz])}
  const e={k,d,g,H,bd,x,z,px:x,pz:z,pts,pi:0,w:0,st:'patrol',yaw:r()*6.28,hp:d.hp*L.hpm,mx:d.hp*L.hpm,last:null,tgt:null,cool:1,chk:0,see:false,lost:0,stg:0,sl:4,tel:0,dead:false,phs:0};bd.userData.e=e;EN.push(e);return e}
 function lootMesh(c,k){const g=new T.Group(),ring=new T.Mesh(new T.CylinderGeometry(.6,.6,.04,20),new T.MeshBasicMaterial({color:c,transparent:true,opacity:.5}));ring.position.y=.03;const beam=new T.Mesh(new T.CylinderGeometry(.04,.04,2.2,6),new T.MeshBasicMaterial({color:c,transparent:true,opacity:.35}));beam.position.y=1.1;g.add(ring,beam);const it=new T.Group();it.position.y=.8;g.add(it);g.it=it;world.add(g);return g}
@@ -205,7 +205,7 @@ function shoot(){const o=cw(),w=WP[o.k];if(P.sw>0||P.rl>0||P.cool>0||o.mag<(w.co
  if(P.oh){if(P.dry<=0){P.dry=.4;note('OVERHEATED');snd('dry')}return false}
  o.mag-=w.cost||1;P.cool=w.rate;ST.shots++;P.idleT=0;PH.rec=w.rec;
  const mz=new T.Vector3();PH.wm.userData.mz.getWorldPosition(mz);cam.getWorldDirection(v2);const base=v2.clone(),cp=cam.position.clone(),vec=new T.Vector3(),dm=new Map(),types={};let hit=false;
- EN.forEach(e=>{if(!e.dead&&e.st!=='attack'&&Math.hypot(e.x-P.x,e.z-P.z)<w.nz){e.st='investigate';e.tgt={x:P.x,z:P.z}}});
+ EN.forEach(e=>{if(!e.dead&&e.k!=='sentinel'&&e.st!=='attack'&&Math.hypot(e.x-P.x,e.z-P.z)<w.nz){e.st='investigate';e.tgt={x:P.x,z:P.z}}});
  const tg=wm.concat(EN.filter(e=>!e.dead).map(e=>e.bd)),spr=w.sp*(1-.5*aimv)*(Math.hypot(P.vx,P.vz)>1?1.3:1);
  for(let i=0;i<w.pel;i++){const dr=base.clone();dr.x+=(Math.random()-.5)*spr*2;dr.y+=(Math.random()-.5)*spr*2;dr.z+=(Math.random()-.5)*spr*2;dr.normalize();rc.set(cp,dr);rc.far=90;
   const hs=rc.intersectObjects(tg,false);let pt=cp.clone().addScaledVector(dr,70),e=null,mt='metal';
@@ -222,29 +222,31 @@ function shoot(){const o=cw(),w=WP[o.k];if(P.sw>0||P.rl>0||P.cool>0||o.mag<(w.co
  if(w.hp){P.heat+=w.hp;if(P.heat>=1){P.oh=true;note('AEGIS OVERHEATED')}}
  P.pitch-=w.kick;return true}
 function dry(o,w){snd('dry');if(P.am[w.ty]>0)reload();else note('NO AMMO: '+w.n)}
-function dmgE(e,d){d*=1-e.d.ar;e.hp-=d;e.H.hit=1;if((e.k==='heavy'||e.k==='sentinel')&&d>30)e.stg=.4;if(e.hp<=0)killE(e);else if(e.st!=='attack'){e.st='pursue';e.last={x:P.x,z:P.z}}}
-function killE(e){e.dead=true;e.H.em.forEach(m=>m.emissiveIntensity=.05);e.g.rotation.z=1.45;e.g.position.y=.35;ST.kills++;impact(new T.Vector3(e.x,1.2,e.z),22);beep(80,.4,'sawtooth',.2,-40);if(e.ring)e.ring.visible=false;
+function dmgE(e,d){if(e.st==='dormant'||e.st==='awaken')return;d*=1-e.d.ar;if(e.vuln>0)d*=1.5;if(e.k==='scout')e.dodge=.45;e.hp-=d;e.H.hit=1;if((e.k==='heavy'||e.k==='sentinel')&&d>30)e.stg=.4;if(e.hp<=0)killE(e);else if(e.st!=='attack'){e.st='pursue';e.last={x:P.x,z:P.z}}}
+function killE(e){e.dead=true;if(e.k==='sentinel'){DY.push({e,t:0,n:0})}else{e.H.em.forEach(m=>m.emissiveIntensity=.05);e.g.rotation.z=e.H.anim?3.14:1.45;e.g.position.y=e.H.anim?1.8*e.d.sc:.35}ST.kills++;impact(new T.Vector3(e.x,1.2,e.z),22);beep(80,.4,'sawtooth',.2,-40);if(e.ring)e.ring.visible=false;
  if(!e.boss&&Math.random()<.35)addA('light',0,e.x,e.z,true);if(e.boss)addH('h',e.x+1,e.z);if(L.l1)l1Kill(e);else if(!EN.some(x=>!x.dead))win()}
 // ---------- enemy AI ----------
 function mv(e,tx,tz,sp,dt){const dx=tx-e.x,dz=tz-e.z,d=Math.hypot(dx,dz);if(d<.4)return true;let da=Math.atan2(dz,dx)-e.yaw;da=Math.atan2(Math.sin(da),Math.cos(da));e.yaw+=da*Math.min(1,dt*6);const s=Math.min(sp*dt,d),r=.5*e.d.sc,nx=e.x+dx/d*s,nz=e.z+dz/d*s;let m=false;if(!col(nx,e.z,r)){e.x=nx;m=true}if(!col(e.x,nz,r)){e.z=nz;m=true}if(!m){e.yaw+=1.3*(e.sd||1)*dt*3;e.bl=(e.bl||0)+dt;if(e.bl>.7){e.sd=-(e.sd||1);e.bl=0}}return false}
-function eUpd(e,dt){if(e.dead)return;e.cool-=dt;e.chk-=dt;let spd=0;
- if(e.stg>0){e.stg-=dt}else{const dx=P.x-e.x,dz=P.z-e.z,d=Math.hypot(dx,dz)||.01;
+function eUpd(e,dt){if(e.dead)return;e.cool-=dt;e.chk-=dt;e.pt-=dt;e.rld-=dt;let spd=0;
+ if(e.k==='sentinel'){spd=bossUpd(e,dt)}else if(e.stg>0){e.stg-=dt}else{const dx=P.x-e.x,dz=P.z-e.z,d=Math.hypot(dx,dz)||.01;if(e.dodge>0){e.dodge-=dt;const ag=e.yaw+1.57*(e.dsd=-(e.dsd||1));mv(e,e.x+Math.cos(ag)*4,e.z+Math.sin(ag)*4,e.d.sp*1.8,dt)}
   if(e.chk<=0){e.chk=.15;e.see=false;if(d<e.d.vr){const dot=(dx*Math.cos(e.yaw)+dz*Math.sin(e.yaw))/d;if(dot>.35||e.st==='pursue'||e.st==='attack')e.see=los(e.x,1.6*e.d.sc,e.z,P.x,1.3,P.z)}}
-  if(e.see){e.last={x:P.x,z:P.z};e.lost=0;e.st=d<e.d.rg?'attack':'pursue'}else{e.lost+=dt;if(e.st==='attack')e.st='pursue'}
+  if(e.see){e.last={x:P.x,z:P.z};e.lost=0;if(e.k==='scout'&&!(e.pt>0))pingAlert(e);if(e.st!=='reposition'&&e.st!=='alert')e.st=d<e.d.rg?'attack':'pursue'}else{e.lost+=dt;if(e.st==='attack')e.st='pursue'}
   const s0=e.d.sp;let sp=0;
   switch(e.st){
+  case'alert':{e.at-=dt;if(e.last){let da=Math.atan2(e.last.z-e.z,e.last.x-e.x)-e.yaw;da=Math.atan2(Math.sin(da),Math.cos(da));e.yaw+=da*Math.min(1,dt*8)}if(e.at<=0)e.st='pursue';break}
+  case'reposition':{sp=s0*1.1;e.rpTm-=dt;if(!e.rep||mv(e,e.rep.x,e.rep.z,sp,dt)||e.rpTm<=0)e.st=e.see?'attack':'pursue';break}
   case'patrol':{const p=e.pts[e.pi];if(e.w>0)e.w-=dt;else{sp=s0*.45;if(mv(e,p[0],p[1],sp,dt)){e.pi=(e.pi+1)%e.pts.length;e.w=1.2}}break}
   case'investigate':sp=s0*.7;if(e.tgt&&mv(e,e.tgt.x,e.tgt.z,sp,dt)){e.st='search';e.w=4}break;
   case'search':e.yaw+=dt*1.6;e.w-=dt;if(e.w<=0)e.st='patrol';break;
   case'pursue':sp=s0;if(e.last&&mv(e,e.last.x,e.last.z,sp,dt)){e.st='search';e.w=5}if(e.lost>9){e.st='search';e.w=4}break;
-  case'attack':{let da=Math.atan2(dz,dx)-e.yaw;da=Math.atan2(Math.sin(da),Math.cos(da));e.yaw+=da*Math.min(1,dt*8);
-   if(e.k==='elite'){sp=s0*.6;mv(e,e.x-dz/d*3*Math.sin(TT),e.z+dx/d*3*Math.sin(TT),sp,dt)}else if(d>e.d.rg*.7){sp=s0*.6;mv(e,P.x,P.z,sp,dt)}
-   if(e.cool<=0){e.cool=e.d.rate;if(e.k==='sentinel'){e.bc=(e.bc||0)+1;if(e.bc>=4){e.bc=0;e.cool=2.4}}const ch=Math.max(.08,L.acc*(1-d/(e.d.rg*1.5)));tracer(new T.Vector3(e.x,1.5*e.d.sc,e.z),new T.Vector3(P.x,1.3,P.z),0xff6a3a);beep(190,.07,'square',.06);if(Math.random()<ch)hurtP(e.d.dmg*(1+L.t*.04),e)}break}}
+  case'attack':{e.rpT=(e.rpT||5)-dt;if(e.rpT<=0&&e.k!=='scout'){e.rpT=4+Math.random()*3;if(pickRep(e)){e.st='reposition';break}}let da=Math.atan2(dz,dx)-e.yaw;da=Math.atan2(Math.sin(da),Math.cos(da));e.yaw+=da*Math.min(1,dt*8);
+   if(e.k==='elite'||e.k==='scout'){sp=s0*.6;mv(e,e.x-dz/d*3*Math.sin(TT),e.z+dx/d*3*Math.sin(TT),sp,dt)}else if(d>e.d.rg*.7){sp=s0*.6;mv(e,P.x,P.z,sp,dt)}
+   if(e.cool<=0){if(!e.see){e.st='pursue';break}e.bc=(e.bc||0)+1;e.cool=e.d.rate;if(e.bc>=(e.d.burst||3)){e.bc=0;e.cool=e.d.rl||1.5;e.rld=e.cool}enemyFire(e,L.acc+.12,e.d.dmg*(1+L.t*.04))}break}}
   spd=sp;if(e.k==='sentinel'){const f=e.hp/e.mx,ph=f<.33?2:f<.66?1:0;if(ph>(e.sph||0)){e.sph=ph;e.d=Object.assign({},e.d,{sp:e.d.sp*1.35,rate:e.d.rate*.8});note('HEAVY SENTINEL: PHASE '+(ph+1));beep(90,.6,'sawtooth',.25,-30)}}
   if(e.boss){const f=e.hp/e.mx,ph=f<.33?2:f<.66?1:0;if(e.boss===2&&ph>e.phs){e.phs=ph;note('TITAN PRIME: PHASE '+(ph+1));for(let i=0;i<2;i++){const m=mkE('grunt',e.x+(i?4:-4),e.z+3,Math.random);m.st='pursue';m.last={x:P.x,z:P.z}}}
    if(e.tel>0){e.tel-=dt;e.ring.visible=true;e.ring.position.set(e.x,.05,e.z);e.ring.scale.setScalar(7*(1-e.tel/1.2)+.2);if(e.tel<=0){e.ring.visible=false;if(Math.hypot(P.x-e.x,P.z-e.z)<7){hurtP(30,e);beep(60,.4,'sawtooth',.3,-30)}impact(new T.Vector3(e.x,.3,e.z),14)}}
    else if(e.st==='attack'||e.st==='pursue'){e.sl-=dt;if(e.sl<=0){e.tel=1.2;e.sl=5-ph*1.2;note('DANGER: SLAM INCOMING');beep(220,1.2,'sine',.1,200)}}}}
- const dm=Math.hypot(e.x-e.px,e.z-e.pz)/Math.max(dt,.001);e.px=e.x;e.pz=e.z;animH(e.H,dt,dm,e.st==='attack'?1:0,0,dm>3.5,false,0);e.H.vm.emissive.setHex(e.st==='attack'||e.st==='pursue'?0xff1a1a:e.st==='patrol'?e.d.e:0xffd23a);e.g.position.x=e.x;e.g.position.z=e.z;e.g.position.y=0;e.g.rotation.y=-e.yaw}
+ const dm=Math.hypot(e.x-e.px,e.z-e.pz)/Math.max(dt,.001);e.px=e.x;e.pz=e.z;if((e.st==='pursue'||e.st==='investigate'||e.st==='reposition')&&e.k!=='sentinel'&&dm<.25){e.sk=(e.sk||0)+dt;if(e.sk>1.4){e.sk=0;e.rep={x:e.x+(Math.random()-.5)*10,z:e.z+(Math.random()-.5)*10};if(col(e.rep.x,e.rep.z,1))e.rep={x:e.x,z:e.z};e.rpTm=2;e.st='reposition'}}else e.sk=0;(e.H.anim||animH)(e.H,dt,dm,(e.st==='attack'||e.cs==='wind'||e.cs==='fire')?1:0,0,dm>3.5,false,0);if(e.cs==='wind')e.H.vm.emissiveIntensity=3.5+Math.sin(TT*22)*2.5;if(e.H.core)e.H.core.emissiveIntensity=e.st==='dormant'?.1:e.vuln>0?4.5:1.2;e.H.vm.emissive.setHex(eyeCol(e));e.g.position.x=e.x;e.g.position.z=e.z;e.g.position.y=0;e.g.rotation.y=-e.yaw}
 // ---------- state ----------
 function lock(){ia();if(AC&&mg)mg.gain.value=SV.v;if(!touch)try{$('c').requestPointerLock()}catch(e){}}
 function ui(h){$('op').innerHTML=h;$('tl').style.display=state==='menu'?'block':'none';$('ui').style.display='flex';$('hud').classList.add('hide')}
@@ -299,7 +301,7 @@ function loop(){requestAnimationFrame(loop);const dt=Math.min(clock.getDelta(),.
     if(P.rls<2&&pr>=.65){P.rls=2;if(mg)mg.visible=true;snd('rl2')}
     if(P.rl<=0){P.rl=0;PH.rlp=0;if(mg)mg.visible=true;const n=Math.min(w.mag-o.mag,P.am[w.ty]);o.mag+=n;P.am[w.ty]-=n;snd('rl3')}}
    if(P.hurt>0){P.hurt-=dt;if(P.hurt<=0)$('dv').style.opacity=0}
-   EN.forEach(e=>eUpd(e,dt));if(L.l1){l1Tick(dt);fx1(dt)}
+   EN.forEach(e=>eUpd(e,dt));tickDY(dt);if(L.l1){l1Tick(dt);fx1(dt)}
    LT.forEach(l=>{l.m.it.rotation.y+=dt*1.5;l.m.it.position.y=.8+Math.sin(TT*2+l.ph)*.1});flick.forEach((l,i)=>l.intensity=1.3+Math.sin(TT*(8+i*3))*.4*(Math.random()>.7?1:.2))}
   aimv+=((rmb||tA?1:0)-aimv)*Math.min(1,dt*8);const sp_=Math.hypot(P.vx,P.vz);ph.position.set(P.x,0,P.z);ph.rotation.y=-P.yaw;animH(PH,dt,sp_,aimv,P.pitch,sp_>6,P.rl>0,P.hurt>0?P.hurt:0);
   sun.position.set(P.x+6,18,P.z+7);sun.target.position.set(P.x,0,P.z);const tf=70-18*aimv;if(Math.abs(cam.fov-tf)>.1){cam.fov=tf;cam.updateProjectionMatrix()}
@@ -309,7 +311,8 @@ function loop(){requestAnimationFrame(loop);const dt=Math.min(clock.getDelta(),.
   hudT-=dt;if(hudT<=0&&state==='play'){hudT=.1;const o=cw(),w=WP[o.k],al=EN.filter(e=>!e.dead).length;$('hb').style.width=Math.max(0,P.hp/P.hpm*100)+'%';$('ab').style.width=P.ar+'%';
    $('wn').innerHTML='<span style="color:'+RAR[o.r][2]+'">'+RAR[o.r][0]+'</span> '+w.n+(w.hp?' &middot; HEAT '+Math.round(P.heat*100)+'%':'');$('am').textContent=P.sw>0?'SWITCHING':P.rl>0?'RELOADING':P.oh?'OVERHEAT':(o.mag<(w.cost||1)&&P.am[w.ty]<=0)?'NO AMMO':o.mag+' / '+P.am[w.ty];
    $('inv').innerHTML=P.inv.map((s,i)=>'['+(i+1)+'] '+(s?'<span style="color:'+RAR[s.r][2]+(i===P.cur?';font-weight:700':'')+'">'+WP[s.k].n+' '+s.mag+'</span>':'empty')).join('<br>')+'<br>Reserve L'+P.am.light+' S'+P.am.shell+' R'+P.am.rail+' C'+P.am.cell;
-   $('ob').innerHTML=L.l1?'<b>OPERATION IRONFALL</b><br>'+l1Obj()+l1Dist():'<b>LEVEL '+L.n+': '+L.name+'</b><br>Destroy all hostiles: '+al+' remaining';if(boss&&!boss.dead)$('bb').style.width=Math.max(0,boss.hp/boss.mx*100)+'%';
+   $('ob').innerHTML=L.l1?'<b>OPERATION IRONFALL</b><br>'+l1Obj()+l1Dist():'<b>LEVEL '+L.n+': '+L.name+'</b><br>Destroy all hostiles: '+al+' remaining';if(boss){if(boss.k==='sentinel'){$('bh').style.display=boss.act&&!boss.fin?'block':'none';$('bn').textContent='COLOSSUS  \u00b7  '+(boss.vuln>0?'CORE EXPOSED':boss.st==='awaken'?'ACTIVATING':boss.ph?'PHASE C: OVERLOAD':'PHASE B: SUPPRESSION')}$('bb').style.width=Math.max(0,boss.hp/boss.mx*100)+'%';$('bb').style.background=boss.vuln>0?'#ffb43d':'#ff4a3d'}
+   cam.getWorldDirection(v2);rc.set(cam.position,v2);rc.far=60;const th=rc.intersectObjects(wm.concat(EN.filter(e=>!e.dead&&e.st!=='dormant').map(e=>e.bd)),false),te=th.length&&th[0].object.userData.e;$('tg').textContent=te?ED[te.k].nm+'  '+Math.max(0,Math.round(te.hp/te.mx*100))+'%':'';
    let pr=null,bd=2.6;for(const l of LT){const d=Math.hypot(l.x-P.x,l.z-P.z);if(d<bd){bd=d;pr=l}}const pe=$('pr'),ia=IA.find(i=>Math.hypot(i.x-P.x,i.z-P.z)<2.8&&i.l());if(ia){pe.style.display='block';pe.textContent=(touch?'USE: ':'[E] ')+ia.l()}else if(pr){pe.style.display='block';const q=pr.d;pe.textContent=(touch?'USE: ':'[E] ')+(pr.t==='w'?'Take '+RAR[q.r][0]+' '+WP[q.k].n:pr.t==='m'?'Take '+q.ty+' ammo':pr.t==='h'?'Repair module':pr.t==='k'?'Access module':'Armor kit')}else pe.style.display='none';
    mmc.clearRect(0,0,130,130);const k=130/84,X=x=>(x+42)*k,Z=z=>(z+42)*k;mmc.fillStyle='#3a4552';W.forEach(q=>mmc.fillRect(X(q.x0),Z(q.z0),Math.max(1,(q.x1-q.x0)*k),Math.max(1,(q.z1-q.z0)*k)));LT.forEach(l=>{mmc.fillStyle=l.t==='w'?RAR[l.d.r][2]:l.t==='m'?'#8ee0ff':l.t==='h'?'#4cd964':'#4aa3ff';mmc.fillRect(X(l.x)-1.5,Z(l.z)-1.5,3,3)});mmc.save();mmc.translate(X(P.x),Z(P.z));mmc.rotate(P.yaw);mmc.fillStyle='#36e0ff';mmc.beginPath();mmc.moveTo(5,0);mmc.lineTo(-3,3);mmc.lineTo(-3,-3);mmc.fill();mmc.restore()}}
  R.render(scene,cam)}
@@ -345,6 +348,70 @@ function snd(n,k){switch(n){
  case'imp_concrete':nz_(.09,500,.3,'lowpass');break;
  case'imp_robot':beep(110,.12,'square',.1,-50);nz_(.06,2800,.2);break;
  case'imp_energy':beep(1400,.15,'sine',.1,-1000);break}}
+
+// ---------- enemy models: WRAITH drone, REVENANT/COLOSSUS decoration ----------
+function drone(c){const ti=MT(c.a,.45,.8),gm=MT(c.b,.6,.6),dk=MT(0x0b0d0f,.75,.4),st=MT(0xa0a6ad,.3,.95),gl=new T.MeshStandardMaterial({color:0,emissive:c.e,emissiveIntensity:2.2}),am=new T.MeshStandardMaterial({color:0x331a00,emissive:0xffa020,emissiveIntensity:.8}),
+ H={g:new T.Group(),ph:Math.random()*6,hit:0,vm:gl,em:[gl,am],legs:[],anim:animD,rec:0,aim:0};
+ const b=new T.Group();b.position.y=.95;H.g.add(b);H.body=b;
+ b.add(tp(.5,.4,.3,1.15,1.0,ti,0,0,0),bx(.5,.1,.5,gm,0,.2,0),bx(.4,.12,.3,dk,-.1,-.2,0),disc(.17,.1,dk,.5,0,0),disc(.12,.06,gl,.55,0,0),disc(.05,.04,am,.45,.08,.28),disc(.05,.04,am,.45,.08,-.28),pst(-.35,.35,.1,.4,st));
+ const sc=new T.Group();sc.position.y=.3;sc.add(bx(.14,.06,.2,dk,0,0,0),disc(.03,.1,gl,.1,0,0));b.add(sc);H.scan=sc;
+ b.add(cxl(.02,.35,dk,.5,-.18,.1),cxl(.02,.35,dk,.5,-.18,-.1));const mzo=new T.Object3D();mzo.position.set(.7,-.18,0);b.add(mzo);H.mz=mzo;
+ [[1,1,0],[1,-1,3.14],[-1,1,3.14],[-1,-1,0]].forEach(a=>{const lg=new T.Group();lg.position.set(a[0]*.32,-.05,a[1]*.38);lg.add(cl(.05,.04,.55,ti),sp(.06,dk,0,0,0));const sh=new T.Group();sh.position.y=-.55;sh.add(cl(.04,.02,.7,gm),sp(.05,dk,0,0,0));const ft=new T.Mesh(new T.ConeGeometry(.03,.14,6),dk);ft.rotation.x=Math.PI;ft.position.y=-.76;sh.add(ft);lg.add(sh);b.add(lg);H.legs.push({lg,sh,sz:a[1],off:a[2]})});
+ H.g.scale.setScalar(c.sc);return H}
+function animD(H,dt,spd,aim){H.ph+=spd*dt*2.6;const k=Math.min(1,spd/3);H.hit*=Math.max(0,1-dt*6);
+ H.legs.forEach(l=>{const s=Math.sin(H.ph+l.off);l.lg.rotation.x=-l.sz*1.35;l.lg.rotation.z=s*.4*k;l.sh.rotation.x=l.sz*(1.2-Math.max(0,s)*.3*k)});
+ H.body.position.y=.95+Math.sin(TT*3)*.012+Math.abs(Math.sin(H.ph))*.02*k;H.body.rotation.z=-H.hit*.25-aim*.04;H.scan.rotation.y=TT*(aim?5:1.6);H.body.rotation.y=Math.sin(TT*.8)*.25*(1-aim)}
+function decorate(H,k){if(k!=='grunt'&&k!=='elite'&&k!=='sentinel'&&k!=='heavy')return;const big=k==='sentinel',ti=MT(big?0x3a3d42:0x4a5340,.45,.8),dk=MT(0x0b0d0f,.75,.4),st=MT(0xa0a6ad,.3,.95),am=new T.MeshStandardMaterial({color:0x331a00,emissive:0xffa020,emissiveIntensity:.8}),z=big?1.15:.85;
+ [1,-1].forEach(s=>H.tor.add(bx(.46,.3,.5,ti,0,1.06,s*z),bx(.2,.04,.3,am,.2,1.2,s*z)));H.tor.add(bx(.12,.26,1.0,ti,.3,.75,0));
+ const f=H.fa[0],gx=new T.Group();gx.position.y=-.5;for(let i=0;i<6;i++){const a=i/6*6.283,b=new T.Mesh(new T.CylinderGeometry(.025,.025,.4,6),dk);b.position.set(Math.cos(a)*.06,-.22,Math.sin(a)*.06);gx.add(b)}
+ gx.add(new T.Mesh(new T.CylinderGeometry(.09,.09,.18,10),st));const mzo=new T.Object3D();mzo.position.set(0,-.46,0);gx.add(mzo);f.add(gx);H.mz=mzo;H.fa[1].add(bx(.1,.34,.3,ti,.12,-.2,0));H.wp.visible=false;
+ if(big){[1,-1].forEach(s=>{H.tor.add(bx(.5,.5,.8,MT(0x2c3035,.55,.7),-.1,1.42,s*1.0),pst(.1,.5,s*.85,.5,st));for(let i=0;i<6;i++)H.tor.add(disc(.045,.04,am,.17,1.43+(i%2)*.14,s*(.8+(i>>1)*.14)))});
+  const core=new T.MeshStandardMaterial({color:0x220800,emissive:0xff6a1a,emissiveIntensity:1.2});H.core=core;H.tor.add(disc(.2,.06,core,.34,.55,0),trs(.24,.03,st,.34,.55,0,Math.PI/2));for(let i=0;i<4;i++)H.tor.add(bx(.02,.04,.5,dk,-.5,.35+i*.12,0));
+  H.hd.add(disc(.04,.02,H.vm,.18,.1,.1),disc(.04,.02,H.vm,.18,.1,-.1))}}
+function eyeCol(e){if(e.k==='sentinel')return e.vuln>0?0xffffff:e.st==='dormant'?0x331100:e.ph?0xff7a1a:0xff1a1a;if(e.rld>0)return 0x3a6aff;return e.st==='attack'||e.st==='pursue'?0xff1a1a:e.st==='patrol'?e.d.e:0xffd23a}
+function safeSpot(x,z){if(!col(x,z,1))return{x,z};for(let r=1;r<10;r+=1)for(let a=0;a<8;a++){const nx=x+Math.cos(a*.785)*r,nz=z+Math.sin(a*.785)*r;if(!col(nx,nz,1)&&Math.abs(nx)<39&&Math.abs(nz)<39)return{x:nx,z:nz}}return{x,z}}
+// ---------- shared enemy firing (same collision rules as the player) ----------
+const _mz=new T.Vector3(),DY=[];
+function enemyFire(e,acc,dmg){const H=e.H;if(H.mz)H.mz.getWorldPosition(_mz);else _mz.set(e.x,1.5*e.d.sc,e.z);
+ const dist0=Math.hypot(P.x-_mz.x,P.z-_mz.z),sp=(1-Math.min(.9,acc))*(1+dist0/25)*3,tx=P.x+(Math.random()-.5)*sp,ty=1.3+(Math.random()-.5)*sp*.4,tz=P.z+(Math.random()-.5)*sp;
+ const dir=new T.Vector3(tx-_mz.x,ty-_mz.y,tz-_mz.z),dist=dir.length();dir.normalize();rc.set(_mz,dir);rc.far=dist;const hb=rc.intersectObjects(wm,false);let end=new T.Vector3(tx,ty,tz),blocked=false;
+ if(hb.length){end=hb[0].point.clone();blocked=true;impact(end,hb[0].object.userData.mt||'metal',3)}
+ tracer(_mz.clone(),blocked?end:end.clone().addScaledVector(dir,6),e.d.e);beep(190,.06,'square',.05);
+ if(!blocked&&Math.hypot(tx-P.x,tz-P.z)<.9&&Math.abs(ty-1.3)<.8)hurtP(dmg,e)}
+function pickRep(e){let best=null,bd=1e9;for(let i=0;i<12;i++){const a=Math.random()*6.283,r=(.35+Math.random()*.4)*e.d.rg,x=P.x+Math.cos(a)*r,z=P.z+Math.sin(a)*r;if(Math.abs(x)>39||Math.abs(z)>39||col(x,z,1))continue;if(!los(x,1.5,z,P.x,1.3,P.z)||!los(e.x,.8,e.z,x,.8,z))continue;const dd=Math.hypot(x-e.x,z-e.z);if(dd<bd&&dd>2){bd=dd;best={x,z}}}if(!best)return false;e.rep=best;e.rpTm=3;return true}
+function pingAlert(e){e.pt=8;let n=0;EN.forEach(o=>{if(o===e||o.dead||o.k==='sentinel'||o.st==='attack'||o.st==='pursue')return;if(Math.hypot(o.x-e.x,o.z-e.z)<30){o.st='alert';o.at=.6;o.last={x:P.x,z:P.z};n++}});impact(new T.Vector3(e.x,1.2,e.z),'energy',4);beep(1400,.3,'square',.08,600);if(n)note('WRAITH ALERT: '+n+' unit'+(n>1?'s':'')+' alerted')}
+// ---------- COLOSSUS boss state machine ----------
+function bossUpd(e,dt){const H=e.H,dx=P.x-e.x,dz=P.z-e.z,d=Math.hypot(dx,dz)||.01;
+ const face=(x,z)=>{let da=Math.atan2(z-e.z,x-e.x)-e.yaw;da=Math.atan2(Math.sin(da),Math.cos(da));e.yaw+=da*Math.min(1,dt*2.5)};
+ if(e.st==='dormant'){H.pw=0;if(d<26&&P.x>27){e.st='awaken';e.t=3;H.pw=1;e.act=1;note('COLOSSUS ACTIVATING');beep(60,1.6,'sawtooth',.25,200)}return 0}
+ if(e.st==='awaken'){e.t-=dt;face(P.x,P.z);if(e.t<=0){e.st='combat';e.cs='cool';e.t=1;note('COLOSSUS ONLINE')}return 0}
+ e.vuln=Math.max(0,(e.vuln||0)-dt);
+ e.chk-=dt;if(e.chk<=0){e.chk=.15;e.see=d<e.d.vr&&los(e.x,3.2,e.z,P.x,1.3,P.z)}if(e.see)e.last={x:P.x,z:P.z};
+ e.dsT=(e.dsT||0)-dt;if(e.dsT<=0&&e.hp<e.mx*.66){e.dsT=e.hp<e.mx*.33?.25:.7;impact(new T.Vector3(e.x+(Math.random()-.5)*2,1+Math.random()*3,e.z+(Math.random()-.5)*2),'metal',3);smoke(new T.Vector3(e.x,3.4,e.z),new T.Vector3(0,1,0))}
+ if(!e.ph&&e.hp<e.mx*.5){e.ph=1;e.cs='ov';e.t=2.2;e.vuln=4.2;if(e.ring)e.ring.visible=false;note('COLOSSUS OVERLOAD: CORE EXPOSED');beep(80,1.4,'sawtooth',.3,300);impact(new T.Vector3(e.x,3,e.z),'robot',16)}
+ let sp=0;
+ if(e.cs==='ov'){e.t-=dt;if(e.t<=0){e.cs='cool';e.t=.8}return 0}
+ if(e.cs==='cool'){e.t-=dt;if(e.see)face(P.x,P.z);const tg=e.see?(d>13?[P.x,P.z]:null):(e.last?[e.last.x,e.last.z]:[P.x,P.z]);if(tg){mv(e,tg[0],tg[1],e.d.sp,dt);sp=e.d.sp}else if(d<7){mv(e,e.x-dx/d*5,e.z-dz/d*5,e.d.sp*.8,dt);sp=e.d.sp*.8}
+  e.sf=(e.sf||0)+sp*dt;if(e.sf>2.6){e.sf=0;if(d<35)beep(55,.22,'sawtooth',.2,-20)}
+  if(e.t<=0&&e.see){const r=Math.random();e.at=(e.ph&&r<.35)?'slam':(r<.6?'burst':'cannon');e.cs='wind';e.t=e.at==='burst'?.5:e.at==='slam'?1.2:(e.ph?.8:1.2);e.wt=e.t;e.lk={x:P.x,z:P.z};beep(300,e.t,'sine',.08,500)}
+  return sp}
+ if(e.cs==='wind'){e.t-=dt;face(P.x,P.z);if(e.at==='cannon'&&e.t>.3)e.lk={x:P.x,z:P.z};
+  if(e.ring){e.ring.visible=e.at!=='burst';if(e.at==='slam'){e.ring.position.set(e.x,.05,e.z);e.ring.scale.setScalar(.3+7*(1-e.t/e.wt))}else{e.ring.position.set(e.lk.x,.05,e.lk.z);e.ring.scale.setScalar(2.2)}}
+  if(e.t<=0){if(e.ring)e.ring.visible=false;
+   if(e.at==='slam'){if(Math.hypot(P.x-e.x,P.z-e.z)<7.3)hurtP(30,e);impact(new T.Vector3(e.x,.3,e.z),'concrete',16);beep(50,.5,'sawtooth',.3,-25);e.vuln=Math.max(e.vuln,2.5);note('CORE EXPOSED');e.cs='cool';e.t=e.ph?1.6:2.4}
+   else{e.cs='fire';e.fi=e.at==='burst'?6:1;e.t=0}}
+  return 0}
+ if(e.cs==='fire'){e.t-=dt;if(e.t<=0){
+   if(e.at==='cannon'){const mz=new T.Vector3();if(H.mz)H.mz.getWorldPosition(mz);else mz.set(e.x,3,e.z);const lk=new T.Vector3(e.lk.x,.3,e.lk.z),dr=new T.Vector3().subVectors(lk,mz),ln=dr.length();dr.normalize();rc.set(mz,dr);rc.far=ln;const hb=rc.intersectObjects(wm,false);let end=lk,bl=false;if(hb.length){end=hb[0].point.clone();bl=true}
+    beam(mz,end,0xff3a1a,.12);impact(end,bl?'metal':'concrete',14);beep(70,.35,'sawtooth',.35,-30);if(!bl&&Math.hypot(P.x-e.lk.x,P.z-e.lk.z)<2.4)hurtP(e.d.dmg*2.4,e)}
+   else enemyFire(e,.4,e.d.dmg);
+   e.fi--;e.t=.13;if(e.fi<=0){e.cs='cool';e.t=e.ph?1.4:2.4}}
+  return 0}
+ return 0}
+function tickDY(dt){for(let i=DY.length-1;i>=0;i--){const q=DY[i],e=q.e;q.t+=dt;e.g.rotation.z=Math.min(1.45,Math.max(0,q.t-1)*.9);e.g.position.y=-Math.max(0,q.t-1)*.15;q.n-=dt;
+  if(q.n<=0){q.n=.18;impact(new T.Vector3(e.x+(Math.random()-.5)*3,1+Math.random()*3,e.z+(Math.random()-.5)*3),Math.random()<.5?'robot':'metal',6);beep(90+Math.random()*80,.1,'square',.08)}
+  e.H.em.forEach(m=>m.emissiveIntensity=(Math.random()<.5?2:.2)*(1-q.t/3));if(e.H.core)e.H.core.emissiveIntensity=Math.random()*3;
+  if(q.t>3){e.H.em.forEach(m=>m.emissiveIntensity=.05);if(e.H.core)e.H.core.emissiveIntensity=0;impact(new T.Vector3(e.x,2,e.z),'robot',30);beep(50,.8,'sawtooth',.35,-30);e.fin=1;addH('h',e.x+2.5,e.z);addA('light',60,e.x-2.5,e.z);DY.splice(i,1)}}}
 let HD={},cineT=0;const mxp={y:0},rmq=matchMedia('(prefers-reduced-motion:reduce)').matches;addEventListener('pointermove',e=>mxp.y=e.clientY/innerHeight-.5);
 let AN={sl:[],puffs:[],lamps:[],bc:null,sp:0};
 function sign(x,y,z,ry,t,c){const tx=cv(q=>{q.fillStyle='#10161b';q.fillRect(0,0,256,256);q.fillStyle='#d6a23a';q.fillRect(0,0,256,12);q.scale(.71,1);q.fillStyle=c||'#9fc4e8';q.font='bold 40px Arial Narrow,Arial';t.split('|').forEach((l,i)=>q.fillText(l,14,80+i*52))});const m=new T.Mesh(new T.PlaneGeometry(2.4,1.7),new T.MeshBasicMaterial({map:tx}));m.position.set(x,y,z);m.rotation.y=ry;world.add(m)}
@@ -370,22 +437,22 @@ function fx1(dt){AN.sl.forEach((o,i)=>o.tg.position.set(-15+Math.sin(TT*.5+i*2)*
 let M={},CPS=null,BRIEF=0,IA=[],gates={},pad=null;
 const L1CFG={n:1,t:0,name:'OPERATION IRONFALL',en:9,acc:.2,hpm:1,loot:12,boss:0,area:'Ironfall Depot',seed:1,rew:80,l1:1};
 const cfg0=cfg;cfg=n=>n===1?L1CFG:cfg0(n);
-function brief1(){CPS=null;ui(`<h2>OPERATION IRONFALL</h2><p>Threat rating: LOW to MODERATE</p><p>"TITAN-07, an autonomous weapons depot has gone dark. Hostile units have seized the facility. Recover an access module, secure the depot, and reach the extraction point."</p><p><b>Objectives:</b> equip a weapon, collect ammunition, destroy the scouts, cross the cargo yard, recover the access module, activate the security terminal, defeat the Heavy Sentinel, extract.</p><p><b>Equipment:</b> sidearm. Find the Viper Assault Rifle, Aegis Energy Rifle (energy cells) and Breacher Shotgun (shells) in the field.</p><button onclick="BRIEF=1;startLevel(1)">Start mission</button><button onclick="menu()">Back</button>`)}
+function brief1(){CPS=null;ui(`<h2>OPERATION IRONFALL</h2><p>Threat rating: LOW to MODERATE</p><p>"TITAN-07, an autonomous weapons depot has gone dark. Hostile units have seized the facility. Recover an access module, secure the depot, and reach the extraction point."</p><p><b>Objectives:</b> equip a weapon, collect ammunition, destroy the scouts, cross the cargo yard, recover the access module, activate the security terminal, defeat COLOSSUS, extract.</p><p><b>Equipment:</b> sidearm. Find the Viper Assault Rifle, Aegis Energy Rifle (energy cells) and Breacher Shotgun (shells) in the field.</p><button onclick="BRIEF=1;startLevel(1)">Start mission</button><button onclick="menu()">Back</button>`)}
 function retry1(){BRIEF=1;startLevel(1,true)}
-function l1Obj(){return['Initialize TITAN-07: move with WASD','Secure the Viper Assault Rifle (E)','Collect the ammunition nearby (E)','Neutralize the scouts: '+M.sc.filter(e=>e.dead).length+'/2','Advance through the Cargo Yard to the Processing Hall','Recover the access module in the Processing Hall','Activate the security terminal in the checkpoint','Defeat the Heavy Sentinel','Reach the extraction point'][M.s]}
+function l1Obj(){return['Initialize TITAN-07: move with WASD','Secure the Viper Assault Rifle (E)','Collect the ammunition nearby (E)','Neutralize the scouts: '+M.sc.filter(e=>e.dead).length+'/2','Advance through the Cargo Yard to the Processing Hall','Recover the access module in the Processing Hall','Activate the security terminal in the checkpoint','Defeat COLOSSUS','Reach the extraction point'][M.s]}
 function sp1(list,st){return list.map(a=>{const e=mkE(a[0],a[1],a[2],Math.random);if(st){e.st=st;e.last={x:P.x,z:P.z}}return e})}
 function openGate(g){const m=gates[g],i=W.findIndex(q=>q.m===m);if(i>=0)W.splice(i,1);const j=wm.indexOf(m);if(j>=0)wm.splice(j,1);m.position.y=7;beep(180,.5,'sawtooth',.12,-80)}
 function saveCP(n){CPS={s:n,inv:P.inv.map(x=>x&&{k:x.k,r:x.r,mag:x.mag}),am:{...P.am},hp:P.hp,ar:P.ar,cur:P.cur,key:M.key};note('CHECKPOINT REACHED')}
 function adv(n){M.s=n;if(n===3)M.sc=sp1([['scout',-31,-8],['scout',-31,8]],'pursue');note(l1Obj());beep(600,.1,'sine')}
 function spawnB(){sp1([['grunt',-18,-18],['grunt',-12,18],['scout',-8,-8],['grunt',-20,8]])}
 function spawnC(){sp1([['grunt',6,-9],['grunt',9,8],['elite',12,0],['scout',2,10]])}
-function spawnE(){const g=sp1([['sentinel',33,12],['grunt',30,-16],['grunt',36,16]]);M.hs=g[0];boss=g[0];$('bh').style.display='block';$('bn').textContent='HEAVY SENTINEL'}
+function spawnE(){if(M.hs)return;const g=sp1([['sentinel',33,12],['grunt',30,-16],['grunt',36,16]]);if(M.hs)return;const b=g[0];M.hs=b;boss=b;b.st='dormant';b.H.pw=0;b.H.pwv=0;const rg_=new T.Mesh(new T.RingGeometry(.2,1,40),new T.MeshBasicMaterial({color:0xff2a1a,transparent:true,opacity:.45,side:T.DoubleSide,depthWrite:false}));rg_.rotation.x=-Math.PI/2;rg_.position.y=.05;rg_.visible=false;world.add(rg_);b.ring=rg_}
 function l1Pick(l){if(l.t==='m'&&M.s<3)M.am=true;if(M.s===1&&l.t==='w'&&l.d.k==='AR')adv(M.am?3:2);else if(M.s===2&&l.t==='m')adv(3);else if(l.t==='k'){M.key=true;if(M.s<=5)adv(6)}}
 function l1Kill(e){if(M.s===8)return}
 function l1Tick(dt){if(M.s===0&&Math.hypot(P.x+38,P.z)>5)adv(1);
  if(M.s===3&&M.sc.every(e=>e.dead)){openGate('g1');spawnB();adv(4);saveCP(4)}
  if(M.s===4&&P.x>-3){spawnC();adv(5)}
- if(M.s===7&&M.hs&&M.hs.dead){adv(8);pad.material.emissive.setHex(0x2aff6a);note('EXTRACTION ACTIVE')}
+ if(M.s===7&&M.hs&&M.hs.fin){adv(8);pad.material.emissive.setHex(0x2aff6a);note('EXTRACTION ACTIVE')}
  if(M.s===8&&Math.hypot(P.x-38,P.z)<3){state='cine';cineT=0;md=false;note('EXTRACTION IN PROGRESS: press any key to skip')}}
 function arena1(cp){clearW();lights();floor(100,0x4c5157);gates={};M={s:0,key:false,sc:[],hs:null};
  const gm=MT(0x401414,.5,.5,0xff2a2a,.8),wl=(a,b,c,d,h)=>box(a,b,c,d,h||6,0x2a2f35);
@@ -407,7 +474,7 @@ function arena1(cp){clearW();lights();floor(100,0x4c5157);gates={};M={s:0,key:fa
  addW('AR',0,-33,-3);addA('light',60,-30,0);addW('EN',1,-14,-18);addA('cell',30,-12,-17);addW('SG',0,-18,18);addA('shell',12,-16,20);addH('h',-8,0);addH('a',-22,4);addA('light',45,-8,-24);
  addL('k',{n:0},8.5,9.5,0xffd33d).it.add(bx(.5,.12,.35,new T.MeshStandardMaterial({color:0,emissive:0xffd33d,emissiveIntensity:1.8}),0,0,0));addH('h',1,0);addA('cell',24,12,-8);addA('light',45,12,8);addH('a',18,6);
  addH('h',28,-22);addH('h',28,22);addA('light',60,38,-20);addA('shell',12,38,20);addA('cell',30,28,0);
- IA.push({x:20,z:-7.6,l:()=>M.s>=7?null:M.key?'Activate security terminal':'Security terminal: ACCESS MODULE REQUIRED',run(){if(!M.key){note('ACCESS DENIED: access module required');beep(120,.3,'sawtooth');return}openGate('g2');spawnE();adv(7);saveCP(7);note('Checkpoint door unlocked. Heavy Sentinel detected.')}});
+ IA.push({x:20,z:-7.6,l:()=>M.s>=7?null:M.key?'Activate security terminal':'Security terminal: ACCESS MODULE REQUIRED',run(){if(!M.key){note('ACCESS DENIED: access module required');beep(120,.3,'sawtooth');return}openGate('g2');spawnE();adv(7);saveCP(7);note('Checkpoint door unlocked. COLOSSUS detected in the reactor yard.')}});
  dress1();scene.add(world);scene.fog.density=.012;
  if(cp&&CPS){const c=CPS;P.inv=c.inv.map(x=>x&&{...x});P.am={...c.am};P.hp=Math.max(c.hp,P.hpm*.6);P.ar=c.ar;P.cur=c.cur;setHeld(PH,P.inv[P.cur].k);M.key=c.key;openGate('g1');P.z=0;if(c.s===4){spawnB();M.s=4;P.x=-24}else{openGate('g2');spawnE();M.s=7;P.x=24}note('Restored from checkpoint')}
  else{P.x=-38;P.z=0;P.boot=3;P.yaw=-1.5;PH.pw=0;PH.pwv=0;setTimeout(()=>{PH.pw=1;beep(300,.5,'sine',.1,500)},900);note('SYSTEMS INITIALIZING...');beep(200,.6,'sine',.1,300);setTimeout(()=>{if(state==='play'){note('TITAN-07 ONLINE');beep(500,.3,'sine',.12,300)}},2200)}}

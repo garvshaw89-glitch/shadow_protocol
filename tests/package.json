@@ -1,0 +1,5 @@
+{
+  "name": "shadow-protocol-tests",
+  "private": true,
+  "devDependencies": { "jsdom": "*", "three": "0.128.0" }
+}

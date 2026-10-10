@@ -1,0 +1,18 @@
+const step=n=>{for(let i=0;i<n;i++)loop()};const out=(...a)=>console.log(...a);
+const T_=(name,f)=>{try{f()}catch(e){out('FAIL',name,e.stack.split('\n').slice(0,4).join(' | '))}};
+T_('start',()=>{BRIEF=1;startLevel(1);step(10);out('state',state,'stage',M.s,'enemies',EN.length)});
+T_('stage0-2',()=>{P.boot=0;P.x=-30;step(2);out('stage',M.s);const ar=LT.find(l=>l.t==='w'&&l.d.k==='AR');P.x=ar.x;P.z=ar.z;use();out('AR equipped',P.inv.map(x=>x&&x.k),'held',!!PH.wm,'stage',M.s);const am=LT.find(l=>l.t==='m');P.x=am.x;P.z=am.z;use();out('stage',M.s,'scouts',M.sc.length,M.sc.map(e=>e.k))});
+T_('shoot-ar',()=>{P.hp=P.hpm=1e6;const m0=cw().mag;md=true;P.yaw=Math.PI;step(30);md=false;out('AR ammo',m0,'->',cw().mag,'shots',ST.shots);const e=M.sc[0];out('scout state',e.st)});
+T_('weapons',()=>{P.inv[1]={k:'SG',r:1,mag:6};P.inv[2]={k:'EN',r:2,mag:24};P.am.shell=12;P.am.cell=48;for(const i of [1,2,0]){swap(i);step(15);md=true;step(25);md=false;out('slot',i,WP[cw().k].n,'mag',cw().mag,'heat',P.heat.toFixed(2),'oh',!!P.oh,'sw',P.sw.toFixed(2))}swap(0);step(15);reload();step(130);out('reload done mag',cw().mag,'rl',P.rl,'am',P.am.light)});
+T_('scouts-ai',()=>{P.x=-30;P.z=0;M.sc.forEach(e=>{e.x=-26;e.z=3});step(120);out('scout states',M.sc.map(e=>e.st));M.sc.forEach(e=>dmgE(e,9999));step(5);out('after kill stage',M.s,'gate open?',!W.some(q=>q.m===gates.g1),'EN',EN.length)});
+T_('yardAI',()=>{P.x=-20;P.z=0;step(200);out('yard states',EN.filter(e=>!e.dead).map(e=>ED[e.k].nm+':'+e.st));const sc=EN.find(e=>e.k==='scout'&&!e.dead);if(sc){sc.pt=0;sc.st='patrol';sc.see=true;pingAlert(sc);out('ping alerted',EN.filter(e=>e.st==='alert').length)}step(100);out('dmg taken',Math.round(ST.dmg))});
+T_('kill-yard',()=>{EN.forEach(e=>{if(!e.dead)dmgE(e,9999)});step(5);P.x=-2;step(5);out('stage',M.s,'C spawned',EN.filter(e=>!e.dead).length)});
+T_('key+terminal',()=>{step(150);EN.forEach(e=>{if(!e.dead)dmgE(e,9999)});const k=LT.find(l=>l.t==='k');P.x=k.x;P.z=k.z;use();out('key',M.key,'stage',M.s);P.x=20;P.z=-7;step(2);use();out('terminal stage',M.s,'boss',M.hs&&M.hs.st,'EN',EN.filter(e=>!e.dead).length)});
+T_('boss',()=>{const b=M.hs;P.x=24;P.z=0;step(30);out('boss dormant while far',b.st,'bar',document.getElementById('bh').style.display);P.x=30;P.z=0;step(20);out('awakening',b.st);step(120);out('boss state',b.st,b.cs,'act',b.act);const seen=new Set();for(let i=0;i<900;i++){loop();seen.add(b.cs+':'+b.at)}out('cs seen',[...seen].join(','),'dmg taken',Math.round(ST.dmg));dmgE(b,b.mx*.8);step(5);out('hp%',Math.round(b.hp/b.mx*100),'ph',b.ph,'cs',b.cs,'vuln',b.vuln&&b.vuln.toFixed(1));const h0=b.hp;step(40);dmgE(b,100);out('vuln dmg mult hp',Math.round(h0-b.hp));for(let i=0;i<400;i++)loop();const s2=new Set();for(let i=0;i<500;i++){loop();s2.add(b.cs+':'+b.at)}out('phaseC cs',[...s2].join(','))});
+T_('boss-death',()=>{const b=M.hs;dmgE(b,1e9);step(10);out('dead',b.dead,'stage still',M.s);step(120);out('fin',b.fin,'stage',M.s,'bar',document.getElementById('bh').style.display,'DY',DY.length)});
+T_('extract',()=>{P.x=38;P.z=0;step(3);out('state',state);step(160);out('state after cine',state,'grade UI',document.getElementById('op').textContent.slice(0,60))});
+T_('retry',()=>{state='play';die();out('dead state',state);retry1();step(20);out('retry state',state,'EN',EN.length,'boss',M.hs&&M.hs.st,'stage',M.s)});
+T_('proc',()=>{SV.max=100;startLevel(2);step(60);out('L2 EN',EN.length);for(let i=0;i<5;i++)step(60);startLevel(100);step(60);out('L100 boss',!!boss,boss&&boss.k,'EN',EN.length);EN.forEach(e=>e.boss&&(e.hp=e.mx*.3));step(200)});
+T_('menu',()=>{menu();step(30);armUI();lvUI();hgUI();upUI();recUI();out('menu ok',state)});
+
+T_('leaks',()=>{out('SPK',SPK.length,'EN',EN.length,'DY',DY.length)});
