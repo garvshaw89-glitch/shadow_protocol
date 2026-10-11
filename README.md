@@ -18,3 +18,6 @@ Runs the real game logic (stubbed renderer) through Level 1 from deployment to e
     cd tests && npm install && node run.js
 
 It prints state checks and any runtime errors. It does not test visuals, audio or touch input.
+
+## Icons
+`favicon.svg` is the master (obsidian #080B0F, titanium #AEBBC7, cyan #43D9F5). `favicon-16x16.png`, `favicon-32x32.png`, `favicon.ico` (16/32/48) and `apple-touch-icon.png` (180x180) are rendered from it. They are linked from the `<head>` of `index.html`, so they load before WebGL starts. The single-file artifact build (`titan-warfare.html`) intentionally has no icon links.
