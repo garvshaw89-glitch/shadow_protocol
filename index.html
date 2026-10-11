@@ -188,8 +188,8 @@ function animH(H,dt,spd,aim,pit,run,rld,hurt){
  H.ua[0].rotation.set(.3*w,0,(.95+ap*.55-pit*.3+H.rec*.1-(H.lw||0)*.3)*w);H.fa[0].rotation.z=(.95-ap*.35)*w+lo*.15;
  H.ua[1].rotation.set(-.3*w,0,(1.2+ap*.3-pit*.3-rl*.7+Math.sin(TT*9)*.1*rl)*w);H.fa[1].rotation.z=(.7-rl*.2)*w+lo*.15;
  H.wp.position.x=.5-H.rec*.08;H.wp.position.y=(H.ik?.5:.42)-(H.sw||0)*.25-(H.lw||0)*.06-(H.spr||0)*.1+Math.sin(H.ph*2)*.012*k;H.wp.rotation.z=(-pit*.3+rl*.3+H.rec*.05-(H.sw||0)*.7-(H.emp?.12:0)-(H.lw||0)*.25-(H.spr||0)*.35)*w-lo*.8;
- if(H.ik&&H.wm&&H.wm.userData.gr)solveArms(H,rl);
- if(H.fg)H.fg.forEach((a,i)=>a.forEach(f=>{const cu=(i===1&&rl>0)?.35:1;f[0].rotation.z=cu*w;f[1].rotation.z=1.2*cu*w}));const e=(2.2*w+.05)*((H.dmg&&Math.random()<.08)?.2:1);H.em.forEach(m=>m.emissiveIntensity=m===H.vm?e:e*.3+.05)}
+ if(H.ik&&H.wm&&H.wm.userData.gr)solveArms(H,rl,w,dt);
+ const e=(2.2*w+.05)*((H.dmg&&Math.random()<.08)?.2:1);H.em.forEach(m=>m.emissiveIntensity=m===H.vm?e:e*.3+.05)}
 // ---------- world ----------
 const W=[],wm=[],EN=[],LT=[],SPK=[];let world,P,L,ST,state='menu',PH,ph,sun,aimv=0,rmb=false,md=false,tF=false,tA=false,jv={x:0,z:0},selT=0,selL=1,hangYaw=0,flick=[],boss=null;
 function mkPlayer(){if(PH){scene.remove(PH.g);disposeMech(PH)}const c=COLS[SV.col];PH=mech({a:c[1],b:c[2],e:c[3],sc:1.05});PH.onStep=i=>{if(!P)return;const v=new T.Vector3();PH.ft[i].getWorldPosition(v);v.y=.05;impact(v,'concrete',3);beep(50,.2,'sawtooth',.18,-20);nz_(.09,260,.22,'lowpass');P.pitch+=(Math.random()-.5)*.006*SV.shake};ph=PH.g;scene.add(ph)}
@@ -571,21 +571,12 @@ function mech(c){const ti=W_(c.a,.38,.9),gm=W_(c.b,.5,.8),fr=MT(0x1a1e23,.7,.6),
  hp.add(tp(.4,.34,.26,1,1.7,gm,0,0,0),PL(bx(.3,.3,.18,ti,.1,-.04,.5)),PL(bx(.3,.3,.18,ti,.1,-.04,-.5)),PL(bx(.12,.26,.7,ti,.32,-.02,0)),PL(bx(.1,.26,.7,ti,-.32,-.02,0)),bx(.2,.06,.5,dk,.34,.14,0));
  const tr=new T.Group();tr.position.y=.12;hp.add(tr);H.tor=tr;
  buildTorso(H,tr,{ti,gm,dk,rb,st,cb,gl,vz,cr,or,ht,fr},PL);H.g.name='TITAN-07';hp.name='HipsRoot (Part 3)';
- // shoulder armor kept from the previous build; belongs to Part 2 (right missile rack, left sensor pod)
- const sa=new T.Group();sa.name='ShoulderArmor (Part 2)';tr.add(sa);
- const dR=dome(.36,ti,0,1.12,.88);dR.scale.set(1,.85,1.1);PL(dR);sa.add(dR,PL(bx(.5,.1,.5,ti,0,1.36,.9)),bx(.5,.36,.5,gm,-.1,1.6,.9));
- for(let i=0;i<6;i++){const cz=.74+(i>>1)*.17,cy=1.52+(i%2)*.14;sa.add(cxl(.06,.22,dk,.18,cy,cz),disc(.05,.02,or,.3,cy,cz))}
- sa.add(PL(tp(.3,.4,.4,1,1.25,ti,0,1.12,-.9)),PL(bx(.46,.12,.55,ti,0,1.4,-.9)),bx(.3,.3,.4,gm,-.25,1.3,-1.0),bx(.02,.28,.06,or,0,1.3,-1.22),pst(-.1,1.7,-.9,.5,st),disc(.08,.02,dk,-.1,1.97,-.9));
+ buildArms(H,tr,{ti,gm,dk,rb,st,cb,gl,or,fr},PL);
  // head: compact sensor unit
  const hd=new T.Group();hd.position.y=1.3;hd.name='HeadAssembly (Part 5)';tr.add(hd);H.hd=hd;
  hd.add(trs(.1,.03,rb,0,-.04,0,0).rotateX(Math.PI/2),pst(.05,-.02,.09,.2,st),pst(.05,-.02,-.09,.2,st),tp(.3,.24,.3,.95,.95,gm,0,.12,0),PL(bx(.3,.06,.36,ti,.05,.3,0)),PL(bx(.2,.16,.04,ti,0,.12,.23)),PL(bx(.2,.16,.04,ti,0,.12,-.23)),pst(-.1,.45,-.12,.4,st));
  [1,-1].forEach(s=>hd.add(disc(.065,.03,dk,.2,.15,s*.09),disc(.045,.02,gl,.21,.15,s*.09),czl(.035,.07,dk,.12,0,s*.22),czl(.025,.02,vz,.12,0,s*.26)));
- // arms: armor shells over hydraulics, elbow actuators, cables, forearm armor, articulated fingers
- [1,-1].forEach((s,i)=>{const u=new T.Group();u.position.set(0,0,0);u.name=(s>0?'Right':'Left')+'ArmRoot (Part 2)';u.add(cl(.12,.1,.62,gm),PL(tp(.17,.14,.5,1,1.25,ti,.03,-.3,0)),pst(.14,-.3,.09,.52,st),pst(.14,-.3,-.09,.52,st),czl(.1,.26,dk,0,-.62,0),tube([[0,-.05,.13],[.12,-.35,.17],[.02,-.62,.12]],.02,cb));
-  const f=new T.Group();f.position.y=-.62;f.add(cl(.1,.08,.6,gm),PL(tp(.2,.15,.52,1,1.2,ti,.03,-.3,0)),trs(.09,.022,st,0,-.6,0,0).rotateX(Math.PI/2));
-  const hn=new T.Group();hn.position.y=-.66;hn.add(bx(.12,.12,.15,dk,0,-.06,0));
-  for(let k=0;k<4;k++){const f1=new T.Group();f1.position.set(.05,-.12,(k-1.5)*.04);f1.add(cl(.015,.012,.08,st));const f2=new T.Group();f2.position.y=-.08;f2.add(cl(.012,.01,.07,st));f1.add(f2);hn.add(f1);H.fg[i].push([f1,f2])}
-  f.add(hn);(H.hn=H.hn||[])[i]=hn;u.add(f);H.mnt[i].add(u);H.ua[i]=u;H.fa[i]=f});
+ 
  const wp=new T.Group();wp.position.set(.5,.5,0);wp.name='WeaponMount';tr.add(wp);H.wp=wp;
  // legs: armored thigh/shin shells, hip + knee actuators, pistons, ankle mechanism, wide industrial feet
  [1,-1].forEach((s,i)=>{const t=new T.Group();t.position.set(0,-.12,s*.32);t.add(PL(tp(.3,.22,.55,1,1.15,ti,0,-.29,0)),PL(bx(.34,.4,.06,gm,0,-.29,s*.22)),czl(.14,.32,dk,0,0,0),pst(.2,-.3,.12,.5,st),pst(.2,-.3,-.12,.5,st),sp(.15,dk,0,-.58,0));
@@ -606,7 +597,6 @@ const GRIP={AR:[[-.14,-.1,0],[.4,-.07,0],[.1,-.3,0]],EN:[[-.12,-.1,0],[.38,-.07,
 const _ss=new T.Vector3(),_t1=new T.Vector3(),_t2=new T.Vector3(),_pp=new T.Vector3(),_e=new T.Vector3(),_d=new T.Vector3(),_q1=new T.Quaternion(),_dn=new T.Vector3(0,-1,0),_fd=new T.Vector3(),_up=new T.Vector3(),_pl=new T.Vector3();
 function wpt(H,p,out){const w=H.wp,sc=H.wm.scale.x,cz=Math.cos(w.rotation.z),sz=Math.sin(w.rotation.z);return out.set(w.position.x+(p[0]*cz-p[1]*sz)*sc,w.position.y+(p[0]*sz+p[1]*cz)*sc,w.position.z+p[2]*sc)}
 function ik2(u,f,S,Tg,l1,l2,pole){_d.subVectors(Tg,S);const D=Math.min(Math.max(_d.length(),Math.abs(l1-l2)+.02),l1+l2-.01);_d.normalize();const ca=(l1*l1+D*D-l2*l2)/(2*l1*D),sa=Math.sqrt(Math.max(0,1-ca*ca));_pp.copy(pole);_pp.addScaledVector(_d,-_pp.dot(_d)).normalize();_e.copy(S).addScaledVector(_d,l1*ca).addScaledVector(_pp,l1*sa);_up.subVectors(_e,S).normalize();u.quaternion.setFromUnitVectors(_dn,_up);_fd.subVectors(Tg,_e).normalize().applyQuaternion(_q1.copy(u.quaternion).invert());f.quaternion.setFromUnitVectors(_dn,_fd)}
-function solveArms(H,rl){const U=H.wm.userData;for(let i=0;i<2;i++){const s=i?-1:1;if(i)wpt(H,U.fg,_t1).lerp(wpt(H,U.mw,_t2),rl);else wpt(H,U.gr,_t1);ik2(H.ua[i],H.fa[i],H.mnt?_ss.copy(H.mnt[i].position).add(H.ua[i].position):H.ua[i].position,_t1,.62,.72,_pl.set(-.3,-.8,s))}}
 
 // ---------- TRAINING FACILITY ----------
 const TGT=[];let TR={};
@@ -714,6 +704,64 @@ function buildTorso(H,tr,M,PL){const {ti,gm,dk,rb,st,cb,gl,vz,cr,or,ht,fr}=M,G=n
  [1,-1].forEach(s=>{const ex=new T.Mesh(new T.CylinderGeometry(.08,.09,.4,10),gm),tp_=new T.Mesh(new T.CylinderGeometry(.06,.07,.06,10),ht);ex.position.set(-.5,1.12,s*.36);tp_.position.set(-.5,1.34,s*.36);cs.add(ex,tp_,trs(.085,.015,ht,-.5,1.2,s*.36,0).rotateX(Math.PI/2),tube([[-.45,.5,s*.1],[-.5,.75,s*.25],[-.5,1.0,s*.34]],.022,cb));for(let i=0;i<5;i++)cs.add(bx(.02,.2,.012,st,-.6,.55,s*(.06+i*.05)))});
  flushBolts(tr,st)}
 function disposeMech(H){if(!H)return;H.g.traverse(o=>{if(o.geometry)o.geometry.dispose();if(o.material&&o.material.dispose&&!o.material.map)o.material.dispose()})}
+
+// ---------- TITAN-07 PART 2: shoulder assemblies, arms, wrists, hands ----------
+// Per side (R = +z, L = -z) under the Part-1 mount: XShoulderJoint, XShoulderArmor (follows arm elevation x0.3), XUpperArm >
+//   XElbowJoint (fixed housing) + XForearm > XWristJoint (fixed housing) + XHand > {Thumb,Index,Middle,Ring,Little}FingerSegments (3 joints each).
+// Elbow/shoulder motion comes from the two-bone IK in animH; the wrist is solved so the hand wraps the weapon grip; actuators are variable-length (barrel + sliding rod).
+const FLEN={index:[.07,.05,.04],middle:[.075,.055,.04],ring:[.07,.05,.04],little:[.055,.04,.035],thumb:[.05,.045,.035]},FZ={index:-.045,middle:-.015,ring:.015,little:.045};
+const CUR={relaxed:{thumb:[.1,.15,.1],index:[.18,.2,.12],middle:[.22,.26,.16],ring:[.26,.3,.2],little:[.3,.34,.24]},
+ gripR:{thumb:[.55,.7,.5],index:[.3,.28,.18],middle:[1.05,1.15,.85],ring:[1.1,1.2,.9],little:[1.1,1.2,.9]},
+ gripL:{thumb:[.8,.8,.6],index:[1.0,1.1,.8],middle:[1.05,1.15,.85],ring:[1.1,1.2,.9],little:[1.1,1.2,.9]}};
+function buildHand(hn,s,i,M,H){const {ti,gm,dk,rb,st}=M,nm=s>0?'Right':'Left';
+ hn.add(bx(.1,.12,.17,dk,0,-.06,0),bx(.015,.1,.14,rb,.055,-.06,0),bx(.03,.1,.15,ti,-.06,-.06,0));H.plates.push(hn.children[2]);
+ const F={};
+ ['index','middle','ring','little'].forEach(k=>{const z=FZ[k],L=FLEN[k],r=.016,root=new T.Group();root.name=k[0].toUpperCase()+k.slice(1)+'FingerSegments';root.position.set(0,-.125,z);
+  hn.add(czl(.018,.036,dk,0,-.125,z),pst(-.085,-.06,z,.1,st));
+  const m1=cl(r,r*.88,L[0],st),g2=new T.Group(),m2=cl(r*.88,r*.8,L[1],st),g3=new T.Group(),m3=cl(r*.8,r*.7,L[2],st);g2.position.y=-L[0];g3.position.y=-L[1];root.add(m1,sp(.017,dk,0,0,0),g2);g2.add(m2,sp(.015,dk,0,0,0),g3);g3.add(m3,sp(.014,dk,0,0,0),bx(.012,.012,.026,rb,.008,-L[2],0));hn.add(root);F[k]=[root,g2,g3]});
+ const tz=-.085*s,troot=new T.Group();troot.name='ThumbSegments';troot.position.set(.035,-.04,tz);const t2=new T.Group(),t3=new T.Group(),L=FLEN.thumb;t2.position.y=-L[0];t3.position.y=-L[1];troot.add(cl(.019,.017,L[0],st),sp(.02,dk,0,0,0),t2);t2.add(cl(.017,.015,L[1],st),sp(.017,dk,0,0,0),t3);t3.add(cl(.015,.013,L[2],st),sp(.014,dk,0,0,0));hn.add(troot,sp(.025,dk,.03,-.035,tz));F.thumb=[troot,t2,t3];
+ const so=new T.Object3D();so.name=i?'SupportGripTarget':'WeaponSocket';so.position.set(.055,-.06,0);hn.add(so);H.nodes[so.name]=so;H.fingers[i]=F}
+function buildArms(H,tr,M,PL){const {ti,gm,dk,rb,st,cb,gl,or,fr}=M;H.act=[];H.sarm=[];H.fingers=[];H.gv=[0,0];H.hn=[];H.ua=[];H.fa=[];
+ [1,-1].forEach((s,i)=>{const nm=s>0?'Right':'Left',mn=H.mnt[i];
+  // --- shoulder joint (hub, bearing, actuator mount) ---
+  const sj=new T.Group();sj.name=nm+'ShoulderJoint';sj.add(trs(.13,.03,st,0,0,s*.2,0),czl(.1,.12,fr,0,0,s*.19),bx(.06,.14,.06,gm,-.1,.1,s*.1),bx(.06,.06,.1,fr,-.12,-.06,s*.06));mn.add(sj);
+  // --- shoulder armor (layered; follows the arm partly so it clears the chest) ---
+  const sa=new T.Group();sa.name=nm+'ShoulderArmor';mn.add(sa);H.sarm[i]=sa;
+  if(s>0){const d=dome(.36,ti,0,.17,.14);d.scale.set(1,.85,1.1);PL(d);sa.add(d,PL(bx(.5,.1,.5,ti,0,.41,.16)),PL(bx(.46,.05,.46,gm,0,.29,.15)),bx(.5,.36,.5,gm,-.1,.65,.16),bx(.14,.2,.12,fr,-.05,.2,-.02));
+   for(let k=0;k<6;k++){const cz=(k>>1)*.17,cy=.57+(k%2)*.14;sa.add(cxl(.06,.22,dk,.18,cy,cz),disc(.05,.02,or,.3,cy,cz))}}
+  else{sa.add(PL(tp(.3,.4,.4,1,1.25,ti,0,.17,-.16)),PL(bx(.46,.12,.55,ti,0,.45,-.16)),PL(bx(.4,.05,.5,gm,0,.3,-.15)),bx(.3,.3,.4,gm,-.25,.35,-.26),bx(.02,.28,.06,or,0,.35,-.48),pst(-.1,.75,-.16,.5,st),disc(.08,.02,dk,-.1,1.02,-.16),bx(.14,.2,.12,fr,-.05,.2,.02))}
+  sa.add(disc(.02,.02,st,.25,.38,s*.12),disc(.02,.02,st,.25,.38,s*.3),disc(.02,.02,st,.25,.24,s*.2));
+  // --- upper arm: inner frame, layered plates, cavity, actuator lugs ---
+  const u=new T.Group();u.name=nm+'UpperArm';mn.add(u);H.ua[i]=u;
+  u.add(cl(.12,.1,.62,gm),bx(.04,.56,.04,fr,-.07,-.31,.07),bx(.04,.56,.04,fr,-.07,-.31,-.07),bx(.1,.3,.14,dk,-.02,-.3,0),
+   PL(pl2([[-.1,-.1],[.1,-.1],[.12,-.5],[-.12,-.5]],.05,ti,.08,0,0)),PL(pl2([[-.09,-.1],[.09,-.1],[.1,-.5],[-.1,-.5]],.04,gm,-.15,0,0)),PL(plz([[-.12,-.08],[.12,-.08],[.14,-.5],[-.1,-.52]],.04,ti,0,0,s>0?.1:-.14)),PL(plz([[-.1,-.1],[.1,-.1],[.1,-.46],[-.08,-.46]],.03,gm,0,0,s>0?-.12:.09)),
+   bx(.06,.06,.1,gm,.13,-.14,0),tube([[-.06,-.05,s*.13],[-.12,-.3,s*.14],[-.05,-.6,s*.1]],.016,cb));
+  // --- elbow joint housing (fixed to upper arm): pin, bearings, side plates, stops ---
+  const ej=new T.Group();ej.name=nm+'ElbowJoint';ej.add(czl(.11,.26,fr,0,-.62,0),trs(.12,.02,st,0,-.62,.13,0),trs(.12,.02,st,0,-.62,-.13,0),bx(.2,.16,.03,ti,0,-.62,.15),bx(.2,.16,.03,ti,0,-.62,-.15),bx(.05,.05,.04,st,-.1,-.62,.1),bx(.05,.05,.04,st,-.1,-.62,-.1),czl(.04,.34,st,0,-.62,0));u.add(ej);H.plates.push(ej.children[3],ej.children[4]);
+  // --- forearm: core, layered plates, service panel, cooling slots, cable channel, actuator lug, wrist housing ---
+  const f=new T.Group();f.name=nm+'Forearm';f.position.y=-.62;u.add(f);H.fa[i]=f;
+  f.add(cl(.1,.08,.6,gm),PL(pl2([[-.12,-.06],[.12,-.06],[.14,-.52],[-.1,-.54]],.05,ti,.09,0,0)),PL(pl2([[-.1,-.08],[.1,-.08],[.12,-.5],[-.1,-.5]],.04,gm,-.14,0,0)),PL(plz([[-.12,-.08],[.12,-.08],[.14,-.5],[-.1,-.5]],.04,ti,0,0,s>0?.09:-.13)),
+   bx(.012,.2,.1,fr,.145,-.3,0),bx(.06,.06,.1,gm,.13,-.1,0),tube([[-.06,-.08,-s*.11],[-.1,-.3,-s*.12],[-.05,-.56,-s*.09]],.015,cb),czl(.085,.18,fr,0,-.6,0),trs(.09,.022,st,0,-.57,0,0).rotateX(Math.PI/2));
+  for(let k=0;k<4;k++)f.add(bx(.012,.025,.1,dk,.0,-.2-k*.06,s*.135));
+  f.add(lbl('T7-'+(s>0?'R':'L'),.07,.025,.1,-.45,s*.146,s>0?0:Math.PI,'#c9a24a'));
+  const wj=new T.Group();wj.name=nm+'WristJoint';wj.position.y=-.66;wj.add(trs(.075,.02,st,0,0,0,0).rotateX(Math.PI/2),sp(.04,dk,0,0,0));f.add(wj);
+  const hn=new T.Group();hn.name=nm+'Hand';hn.position.y=-.66;f.add(hn);H.hn[i]=hn;buildHand(hn,s,i,M,H);
+  // --- variable-length actuator: barrel fixed to upper arm, rod fixed to forearm ---
+  const ag=new T.Group();ag.name=nm+'ElbowActuator';ag.position.set(.13,-.14,0);const Lb=.26,Lr=.3,rg=new T.Group();rg.position.y=-Lb;ag.add(cl(.032,.032,Lb,dk),rg);rg.add(cl(.018,.018,Lr,st));u.add(ag);
+  H.act[i]={g:ag,rod:rg,Lb,Lr,A:new T.Vector3(.13,-.14,0),Bf:new T.Vector3(.13,-.1,0)};
+  H.nodes[nm+'UpperArm']=u;H.nodes[nm+'Forearm']=f;H.nodes[nm+'Hand']=hn;H.nodes[nm+'WristJoint']=wj;H.nodes[nm+'ElbowJoint']=ej;H.nodes[nm+'ShoulderArmor']=sa;H.nodes[nm+'ShoulderJoint']=sj})}
+const _bx=new T.Vector3(),_by=new T.Vector3(),_bz=new T.Vector3(),_m4=new T.Matrix4(),_qa=new T.Quaternion(),_qb=new T.Quaternion(),_qid=new T.Quaternion(),_qc=new T.Quaternion(),_ab=new T.Vector3(),_dd=new T.Vector3();
+function updateAct(H,i){const a=H.act[i],f=H.fa[i];_ab.copy(a.Bf).applyQuaternion(f.quaternion).add(f.position).sub(a.A);const D=_ab.length();_ab.normalize();a.g.quaternion.setFromUnitVectors(_dn,_ab);a.rod.scale.y=Math.max(.15,(D-a.Lb)/a.Lr)}
+function poseFingers(H,w,rl,dt){for(let i=0;i<2;i++){const tgt=w*(i===1?1-.85*rl:1);H.gv[i]+=(tgt-H.gv[i])*Math.min(1,dt*10);const g=H.gv[i],gp=i?CUR.gripL:CUR.gripR,F=H.fingers[i];for(const k in F){const a=CUR.relaxed[k],b=gp[k];F[k].forEach((seg,j)=>{seg.rotation.z=(k==='thumb'&&j===0?.7:0)+a[j]+(b[j]-a[j])*g})}}}
+function solveArms(H,rl,w,dt){const U=H.wm.userData,wr=H.wp.rotation.z,cs=Math.cos(wr),sn=Math.sin(wr);
+ for(let i=0;i<2;i++){const s=i?-1:1;if(i)wpt(H,U.fg,_t1).lerp(wpt(H,U.mw,_t2),rl);else wpt(H,U.gr,_t1);_t1.x-=cs*.055;_t1.y-=sn*.055;
+  const u=H.ua[i],f=H.fa[i];ik2(u,f,_ss.copy(H.mnt[i].position).add(u.position),_t1,.62,.72,_pl.set(-.3,-.8,s));
+  // wrist: palm normal = weapon forward, fingers run across the grip, curl axis = grip axis
+  _bx.set(cs,sn,0);_by.set(0,0,s);_bz.crossVectors(_bx,_by);_m4.makeBasis(_bx,_by,_bz);_qa.setFromRotationMatrix(_m4);
+  _qb.copy(u.quaternion).multiply(f.quaternion).invert().multiply(_qa);const ang=2*Math.acos(Math.min(1,Math.abs(_qb.w)));if(ang>1.5)_qb.copy(_qid).slerp(_qb,1.5/ang);
+  H.hn[i].quaternion.copy(_qid).slerp(_qb,w);
+  updateAct(H,i);_dd.set(0,-1,0).applyQuaternion(u.quaternion);H.sarm[i].rotation.z=Math.max(-.35,Math.min(.45,Math.atan2(_dd.x,-_dd.y)*.3));H.sarm[i].rotation.x=s*Math.max(-.2,Math.min(.2,_dd.z*s*.2))}
+ poseFingers(H,w,rl,dt)}
 let HD={},cineT=0;const mxp={x:0,y:0},rmq=matchMedia('(prefers-reduced-motion:reduce)').matches;addEventListener('pointermove',e=>{mxp.y=e.clientY/innerHeight-.5;mxp.x=e.clientX/innerWidth-.5});
 let AN={sl:[],puffs:[],lamps:[],bc:null,sp:0};
 function sign(x,y,z,ry,t,c){const tx=cv(q=>{q.fillStyle='#10161b';q.fillRect(0,0,256,256);q.fillStyle='#d6a23a';q.fillRect(0,0,256,12);q.scale(.71,1);q.fillStyle=c||'#9fc4e8';q.font='bold 40px Arial Narrow,Arial';t.split('|').forEach((l,i)=>q.fillText(l,14,80+i*52))});const m=new T.Mesh(new T.PlaneGeometry(2.4,1.7),new T.MeshBasicMaterial({map:tx}));m.position.set(x,y,z);m.rotation.y=ry;world.add(m)}

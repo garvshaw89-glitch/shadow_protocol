@@ -24,3 +24,6 @@ It prints state checks and any runtime errors. It does not test visuals, audio o
 
 ## TITAN-07 torso (Part 1)
 `mech()` builds the player mech; the torso is a named modular assembly under `TorsoRoot`: InternalChassis, ChestArmor, CentralReactor, Left/RightSideArmor, AbdominalAssembly, RearArmor, CoolingSystem, Left/RightShoulderMount, WaistMount (plus HeadAssembly, WeaponMount and ShoulderArmor for later parts). Attachment nodes are exposed as `PH.nodes.*`; the arm roots are children of the shoulder mounts. Checks: `tests/torso_hierarchy.js`, `tests/torso_geometry.js` (run with `TEST=... node run.js`), views via `tests/torso_views.py`.
+
+## TITAN-07 arms (Part 2)
+Per side under the Part-1 shoulder mount: `XShoulderJoint`, `XShoulderArmor`, `XUpperArm` > `XElbowJoint` + `XForearm` > `XWristJoint` + `XHand` > Thumb/Index/Middle/Ring/LittleFingerSegments (3 joints each). Two-bone IK (shoulder+elbow) places the palm sockets on the weapon grip/foregrip, a wrist solve orients the hand around the grip axis, fingers blend relaxed<->grip, and variable-length actuators follow the elbow. Nodes: `PH.nodes.*` incl. `WeaponSocket` / `SupportGripTarget`. Checks: `tests/arms_rig.js`, `tests/arms_actuator.js`, views `tests/arms_views.py`.
